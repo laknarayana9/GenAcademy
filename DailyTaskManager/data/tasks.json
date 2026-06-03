@@ -1,0 +1,162 @@
+[
+  {
+    "id": "09009e44-c46b-4522-b5da-e15742a3423c",
+    "title": "Week1 Project completion",
+    "priority": "High",
+    "category": "Work",
+    "status": "completed",
+    "due_time": null,
+    "created_at": "2026-06-03T12:48:39.927564",
+    "completed_at": "2026-06-03T12:49:17.911297"
+  },
+  {
+    "id": "5240b0fa-6f3f-44be-be21-12d568d0a5bd",
+    "title": "Grocery shopping",
+    "priority": "Medium",
+    "category": "Work",
+    "status": "pending",
+    "due_time": "01:30",
+    "created_at": "2026-06-03T12:48:59.519842",
+    "completed_at": null
+  },
+  {
+    "id": "80dcc97d-d019-44b7-8171-1c7b13887276",
+    "title": "Review project requirements",
+    "priority": "High",
+    "category": "Work",
+    "status": "pending",
+    "due_time": "09:00",
+    "created_at": "2026-06-03T12:53:15.948396",
+    "completed_at": null
+  },
+  {
+    "id": "35f2332e-8a2a-488a-be6e-3eabc08381e5",
+    "title": "Update GitHub repository README",
+    "priority": "Medium",
+    "category": "Work",
+    "status": "completed",
+    "due_time": "12:30",
+    "created_at": "2026-06-03T12:53:15.948493",
+    "completed_at": "2026-06-03T13:05:28.642205"
+  },
+  {
+    "id": "7fc4b9a5-f7e1-41f1-b0fb-e516bc2cdf80",
+    "title": "Buy groceries",
+    "priority": "Medium",
+    "category": "Errands",
+    "status": "completed",
+    "due_time": "17:00",
+    "created_at": "2026-06-03T12:53:15.948575",
+    "completed_at": "2026-06-03T13:05:29.196175"
+  },
+  {
+    "id": "3d7bf42b-0e2d-412b-823f-a3966f1ea5ef",
+    "title": "Pay electricity bill",
+    "priority": "High",
+    "category": "Personal",
+    "status": "completed",
+    "due_time": "20:00",
+    "created_at": "2026-06-03T12:53:15.948739",
+    "completed_at": "2026-06-03T12:53:15.948580"
+  },
+  {
+    "id": "9ec2bdd3-8517-43c7-af52-ffe8264494e3",
+    "title": "Call insurance provider",
+    "priority": "Low",
+    "category": "Personal",
+    "status": "completed",
+    "due_time": "15:30",
+    "created_at": "2026-06-03T12:53:15.949341",
+    "completed_at": "2026-06-03T13:05:30.767527"
+  },
+  {
+    "id": "1550e2fe-89d6-4657-9813-2ef4804a7097",
+    "title": "Clean desk workspace",
+    "priority": "Low",
+    "category": "Personal",
+    "status": "completed",
+    "due_time": "18:30",
+    "created_at": "2026-06-03T12:53:15.949660",
+    "completed_at": "2026-06-03T12:53:15.949346"
+  },
+  {
+    "id": "b0ac3389-4b08-4f74-a4e2-436e53b633c3",
+    "title": "Schedule weekly planning session",
+    "priority": "Low",
+    "category": "Work",
+    "status": "completed",
+    "due_time": "10:30",
+    "created_at": "2026-06-03T12:53:15.949669",
+    "completed_at": "2026-06-03T13:05:29.972754"
+  },
+  {
+    "id": "57400ef7-614b-4d88-8fe3-15d64fee6e58",
+    "title": "Review project requirements",
+    "priority": "High",
+    "category": "Work",
+    "status": "pending",
+    "due_time": "09:00",
+    "created_at": "2026-06-03T12:53:19.166705",
+    "completed_at": null
+  },
+  {
+    "id": "62b808a3-5918-4278-80a6-a75d97c1c31d",
+    "title": "Update GitHub repository README",
+    "priority": "Medium",
+    "category": "Work",
+    "status": "pending",
+    "due_time": "12:30",
+    "created_at": "2026-06-03T12:53:19.166728",
+    "completed_at": null
+  },
+  {
+    "id": "a54c293a-8118-4083-9d8d-71fe7bdf0a7b",
+    "title": "Buy groceries",
+    "priority": "Medium",
+    "category": "Errands",
+    "status": "completed",
+    "due_time": "17:00",
+    "created_at": "2026-06-03T12:53:19.166735",
+    "completed_at": "2026-06-03T13:05:34.265545"
+  },
+  {
+    "id": "dd568808-179c-4472-9851-db92848d7ada",
+    "title": "Pay electricity bill",
+    "priority": "High",
+    "category": "Personal",
+    "status": "completed",
+    "due_time": "20:00",
+    "created_at": "2026-06-03T12:53:19.166742",
+    "completed_at": "2026-06-03T12:53:19.166737"
+  },
+  {
+    "id": "f21f450e-1706-4764-9c57-b8eea0bde085",
+    "title": "Call insurance provider",
+    "priority": "Low",
+    "category": "Personal",
+    "status": "pending",
+    "due_time": "15:30",
+    "created_at": "2026-06-03T12:53:19.166747",
+    "completed_at": null
+  },
+  {
+    "id": "45263996-f06f-47fd-9e75-a9ed0ec2fe10",
+    "title": "Clean desk workspace",
+    "priority": "Low",
+    "category": "Personal",
+    "status": "completed",
+    "due_time": "18:30",
+    "created_at": "2026-06-03T12:53:19.166753",
+    "completed_at": "2026-06-03T12:53:19.166749"
+  },
+  {
+    "id": "7cfee703-70da-4425-ad0a-01f65b97e462",
+    "title": "Schedule weekly planning session",
+    "priority": "Low",
+    "category": "Work",
+    "status": "pending",
+    "due_time": "10:30",
+    "created_at": "2026-06-03T12:53:19.166757",
+    "completed_at": null
+  }
+]
