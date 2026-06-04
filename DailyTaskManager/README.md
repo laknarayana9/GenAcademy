@@ -9,7 +9,7 @@
 
 I built a custom Daily Task Manager web application using Python, Streamlit, and AI coding agents. The goal of the project was to create a clean, functional productivity app that helps users manage daily tasks while also including data-app features such as CSV import/export, filtering, persistence, and analytics.
 
-The app allows users to add, complete, delete, sort, filter, import, export, and analyze tasks. It was built using a structured vibe coding workflow: first planning the architecture with the agent, then approving edits step by step, then running the app, debugging issues, and finally using a separate agent session for code review and hardening.
+The app allows users to add, complete, delete, sort, filter, import, export, and analyze tasks. It was built using a structured AI-assisted coding workflow: first planning the architecture with the agent, then approving edits step by step, then running the app, debugging issues, and finally using a separate agent session for code review and hardening.
 
 ---
 
@@ -51,9 +51,9 @@ The project was intentionally structured like a real application rather than a s
 
 ---
 
-## Vibe Coding Workflow
+## AI-Assisted Coding Workflow
 
-I followed a disciplined vibe coding process:
+I followed a disciplined AI-assisted coding process:
 
 1. **Planning first** — I asked the AI agent to propose the architecture and file structure before writing any code.
 2. **No code without approval** — The agent was instructed not to write code until the plan was reviewed and approved.
@@ -118,7 +118,7 @@ Clean desk workspace,Low,18:30,Personal,Completed
 
 ## Key Learnings
 
-The biggest learning was that vibe coding works best when the human acts like a product manager and reviewer, not just a prompt typist. The most useful prompts were the ones that clearly defined requirements, acceptance criteria, and constraints.
+The biggest learning was that AI-assisted coding works best when the human acts like a product manager and reviewer, not just a prompt typist. The most useful prompts were the ones that clearly defined requirements, acceptance criteria, and constraints.
 
 Asking for a plan before code is extremely important — it prevents the AI agent from creating a messy one-file prototype and leads to a cleaner modular structure.
 

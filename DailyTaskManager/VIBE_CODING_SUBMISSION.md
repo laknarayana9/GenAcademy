@@ -1,11 +1,11 @@
-# Vibe Coding — Master Class Submission
+# AI-Assisted Coding — Master Class Submission
 ### Daily Task Manager · Built with AI Coding Agents
 
 ---
 
 ## Project Description — What This Project Is
 
-**Daily Task Manager** is a full-featured, production-quality task management web application built entirely through AI-assisted (vibe) coding using Windsurf / Cascade as the primary coding agent.
+**Daily Task Manager** is a full-featured, production-quality task management web application built entirely through AI-assisted coding using Windsurf / Cascade as the primary coding agent.
 
 The app is built with **Python + Streamlit** and runs locally in the browser. It lets users:
 
@@ -39,7 +39,7 @@ DailyTaskManager/
 
 ## How I Built It — Prompts and Iterations
 
-The build followed a disciplined vibe coding workflow: **plan first, review before every edit, fix only the root cause, then harden**. Below is the exact sequence of prompts and what each iteration produced.
+The build followed a disciplined AI-assisted coding workflow: **plan first, review before every edit, fix only the root cause, then harden**. Below is the exact sequence of prompts and what each iteration produced.
 
 ---
 
@@ -65,7 +65,7 @@ Do NOT write any code until I approve the plan.
 
 **What happened:** The agent proposed the modular structure (models / services / utils / components). I reviewed it, asked a clarifying question about persistence (`JSON file vs. database?`), and approved only after the plan looked right.
 
-> **Best practice applied:** Requiring a plan before code forces the agent to think through architecture. Starting with "Do NOT write code" is the single most effective control lever in vibe coding.
+> **Best practice applied:** Requiring a plan before code forces the agent to think through architecture. Starting with "Do NOT write code" is the single most effective control lever in AI-assisted coding.
 
 ---
 
@@ -135,7 +135,7 @@ issues. Do not suggest cosmetic changes. Focus on correctness,
 reliability, and security.
 ```
 
-The parallel reviewer — with fresh eyes and no attachment to the existing code — identified issues the building agent had not flagged. This is the most powerful quality gate in a vibe coding workflow.
+The parallel reviewer — with fresh eyes and no attachment to the existing code — identified issues the building agent had not flagged. This is the most powerful quality gate in an AI-assisted coding workflow.
 
 **P0 Issues found by the code review agent:**
 
@@ -245,7 +245,7 @@ Each feature was accepted only after reviewing the proposed changes.
 
 ## Key Learnings for the Human Developer
 
-These are the lessons that would not be obvious without going through a real vibe coding project:
+These are the lessons that would not be obvious without going through a real AI-assisted coding project:
 
 ---
 
@@ -281,14 +281,14 @@ Not every code review finding needs to be fixed immediately. Classifying issues 
 
 **6. A validation script is a force multiplier.**
 
-Building `validate.py` after the hardening fixes meant every subsequent change could be verified in two seconds. Without it, regression testing would require manual UI interaction every time. Asking the agent to write the test suite (not writing it yourself) is itself a vibe coding best practice — the agent knows the exact internal interfaces and edge cases to cover.
+Building `validate.py` after the hardening fixes meant every subsequent change could be verified in two seconds. Without it, regression testing would require manual UI interaction every time. Asking the agent to write the test suite (not writing it yourself) is itself an AI-assisted coding best practice — the agent knows the exact internal interfaces and edge cases to cover.
 
 ---
 
 **7. You are the product manager, not the typist.**
 
-The human's job in vibe coding is to decide *what* to build, review *what was built*, and know *what questions to ask*. The agent's job is the implementation. The most effective prompts in this project were the ones that clearly stated requirements and acceptance criteria — not the ones that described how to implement something.
+The human's job in AI-assisted coding is to decide *what* to build, review *what was built*, and know *what questions to ask*. The agent's job is the implementation. The most effective prompts in this project were the ones that clearly stated requirements and acceptance criteria — not the ones that described how to implement something.
 
 ---
 
-*Submitted for GenAcademy Master Class: Vibe Coding How-To · June 2026*
+*Submitted for GenAcademy Master Class: AI-Assisted Coding How-To · June 2026*
