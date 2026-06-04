@@ -37,8 +37,7 @@ def _render_add_form(service: TaskService) -> None:
         with col2:
             category = st.selectbox("Category", CATEGORIES)
         with col3:
-            add_time = st.checkbox("Set due time", value=False)
-            due_time_input = st.time_input("Due time", label_visibility="collapsed")
+            due_time_input = st.time_input("Due time (optional)", value=None)
 
         col_sub, col_cancel = st.columns(2)
         with col_sub:
@@ -48,7 +47,7 @@ def _render_add_form(service: TaskService) -> None:
 
         if submitted:
             if title.strip():
-                due_str = due_time_input.strftime("%H:%M") if add_time else None
+                due_str = due_time_input.strftime("%H:%M") if due_time_input is not None else None
                 try:
                     service.add(title, priority, category, due_str)
                     st.session_state["show_add_form"] = False

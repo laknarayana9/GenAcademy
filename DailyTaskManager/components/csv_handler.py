@@ -62,6 +62,17 @@ def _validate_rows(df: pd.DataFrame) -> Tuple[List[dict], List[dict]]:
 
 
 def render_csv_handler(service: TaskService) -> None:
+    result = st.session_state.pop("_import_result", None)
+    if result:
+        if result["imported"]:
+            st.success(f"✅ Imported **{result['imported']}** task(s) successfully.")
+        if result["duplicates"]:
+            st.info(f"ℹ️ **{result['duplicates']}** row(s) skipped — title already exists.")
+        if result["errors"]:
+            st.warning(f"⚠️ **{result['errors']}** row(s) failed during import. Check logs.")
+        if not result["imported"] and not result["errors"]:
+            st.info("ℹ️ No new tasks imported — all rows already exist.")
+
     col_upload, _gap, col_export = st.columns([5, 0.3, 2])
 
     with col_upload:
@@ -130,14 +141,11 @@ def render_csv_handler(service: TaskService) -> None:
                     key="csv_import_btn",
                 ):
                     imported, duplicates, errors = service.import_from_rows(valid_rows)
-                    if imported:
-                        st.toast(f"Imported {imported} task(s) successfully.", icon="✅")
-                    if duplicates:
-                        st.toast(f"{duplicates} row(s) skipped — title already exists.", icon="ℹ️")
-                    if errors:
-                        st.toast(f"{errors} row(s) failed during import. Check logs.", icon="⚠️")
-                    if not imported and not errors:
-                        st.toast("No new tasks imported — all rows already exist.", icon="ℹ️")
+                    st.session_state["_import_result"] = {
+                        "imported": imported,
+                        "duplicates": duplicates,
+                        "errors": errors,
+                    }
                     st.rerun()
             else:
                 st.error("No valid rows found — fix the errors above and re-upload.")

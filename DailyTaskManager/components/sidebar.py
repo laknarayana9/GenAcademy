@@ -1,11 +1,11 @@
-from typing import Optional
+from typing import Optional, Tuple
 
 import streamlit as st
 
 from services.task_service import CATEGORIES
 
 
-def render_sidebar() -> Optional[str]:
+def render_sidebar() -> Tuple[Optional[str], str]:
     with st.sidebar:
         st.markdown('<p class="sidebar-label">Filter by Category</p>', unsafe_allow_html=True)
         st.caption("Applies to the Tasks tab only.")
@@ -17,6 +17,17 @@ def render_sidebar() -> Optional[str]:
             index=0,
             label_visibility="collapsed",
             key="category_filter",
+        )
+
+        st.divider()
+
+        st.markdown('<p class="sidebar-label">Sort Pending By</p>', unsafe_allow_html=True)
+        sort_mode: str = st.radio(
+            label="sort_radio",
+            options=["Priority", "Due Time"],
+            index=0,
+            label_visibility="collapsed",
+            key="sort_mode",
         )
 
         st.divider()
@@ -36,4 +47,4 @@ def render_sidebar() -> Optional[str]:
             unsafe_allow_html=True,
         )
 
-    return selected
+    return selected, sort_mode

@@ -21,7 +21,7 @@ def main() -> None:
 
     service = TaskService()
 
-    category_filter = render_sidebar()
+    category_filter, sort_mode = render_sidebar()
 
     tab1, tab2, tab3 = st.tabs(["  Tasks", "  Import / Export", "  Insights"])
 
@@ -29,7 +29,7 @@ def main() -> None:
     with tab1:
         render_top_bar(service)
 
-        pending, completed = service.get_sorted_filtered(category_filter)
+        pending, completed = service.get_sorted_filtered(category_filter, sort_mode)
 
         warn = pop_load_warning()
         if warn:

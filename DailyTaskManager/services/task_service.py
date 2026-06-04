@@ -51,15 +51,20 @@ class TaskService:
     def get_sorted_filtered(
         self,
         category_filter: Optional[str] = None,
+        sort_mode: str = "Priority",
     ) -> Tuple[List[Task], List[Task]]:
         tasks = load_tasks()
 
         if category_filter and category_filter != "All":
             tasks = [t for t in tasks if t.category == category_filter]
 
+        sort_key = (
+            self._due_time_sort_key if sort_mode == "Due Time"
+            else self._pending_sort_key
+        )
         pending = sorted(
             [t for t in tasks if t.status == "pending"],
-            key=self._pending_sort_key,
+            key=sort_key,
         )
         completed = sorted(
             [t for t in tasks if t.status == "completed"],
@@ -119,3 +124,11 @@ class TaskService:
         has_time = 0 if task.due_time else 1
         time_val = task.due_time if task.due_time else "99:99"
         return (rank, has_time, time_val, task.created_at)
+
+    @staticmethod
+    def _due_time_sort_key(task: Task) -> tuple:
+        # Timed tasks first, sorted by earliest time; untimed tasks last by priority
+        has_time = 0 if task.due_time else 1
+        time_val = task.due_time if task.due_time else "99:99"
+        rank = PRIORITY_RANK.get(task.priority, 99)
+        return (has_time, time_val, rank, task.created_at)
