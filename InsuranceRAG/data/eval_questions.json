@@ -1,0 +1,113 @@
+[
+  {
+    "id": 1,
+    "question": "Is a property with knob-and-tube wiring eligible for HO3 coverage?",
+    "expected_answer_contains": ["declined", "must be declined", "knob-and-tube"],
+    "expected_sources": ["uw_guidelines_homeowners.md"]
+  },
+  {
+    "id": 2,
+    "question": "What roof age triggers a referral?",
+    "expected_answer_contains": ["20 years", "referred"],
+    "expected_sources": ["uw_guidelines_homeowners.md"]
+  },
+  {
+    "id": 3,
+    "question": "What happens if a property has a severe wildfire risk score?",
+    "expected_answer_contains": ["declined", "must be declined", "defensible space", "mitigation"],
+    "expected_sources": ["uw_guidelines_homeowners.md", "hazards_guidance.md"]
+  },
+  {
+    "id": 4,
+    "question": "What is required if a property is in a Special Flood Hazard Area (SFHA)?",
+    "expected_answer_contains": ["referred", "flood insurance", "FLX-ACK"],
+    "expected_sources": ["uw_guidelines_homeowners.md", "endorsements_manual.md", "hazards_guidance.md"]
+  },
+  {
+    "id": 5,
+    "question": "How many water losses in 36 months trigger a referral?",
+    "expected_answer_contains": ["2", "referred", "36 months"],
+    "expected_sources": ["uw_guidelines_homeowners.md"]
+  },
+  {
+    "id": 6,
+    "question": "What wildfire evidence must be collected for a High wildfire risk score?",
+    "expected_answer_contains": ["defensible space", "photo", "clearance", "roof material"],
+    "expected_sources": ["hazards_guidance.md"]
+  },
+  {
+    "id": 7,
+    "question": "What endorsement should be recommended if a property has a basement?",
+    "expected_answer_contains": ["WBK-01", "water backup"],
+    "expected_sources": ["endorsements_manual.md"]
+  },
+  {
+    "id": 8,
+    "question": "When is the Ordinance or Law endorsement (ORD-01) recommended?",
+    "expected_answer_contains": ["before 2000", "built before 2000", "ORD-01"],
+    "expected_sources": ["endorsements_manual.md"]
+  },
+  {
+    "id": 9,
+    "question": "What is the base premium calculation formula?",
+    "expected_answer_contains": ["0.0020", "dwelling limit", "BaseRate"],
+    "expected_sources": ["rating_rules.md"]
+  },
+  {
+    "id": 10,
+    "question": "What surcharge applies to a property with a High wildfire score?",
+    "expected_answer_contains": ["12%", "+12%"],
+    "expected_sources": ["rating_rules.md"]
+  },
+  {
+    "id": 11,
+    "question": "What are the minimum required fields before making an underwriting decision?",
+    "expected_answer_contains": ["roof_age", "construction_year", "occupancy_type"],
+    "expected_sources": ["uw_workflow_playbook.md"]
+  },
+  {
+    "id": 12,
+    "question": "Can a property used for short-term rental be accepted for HO3 coverage?",
+    "expected_answer_contains": ["referred", "shall be referred", "short-term rental"],
+    "expected_sources": ["uw_guidelines_homeowners.md"]
+  },
+  {
+    "id": 13,
+    "question": "What deductible factor applies to a $2,500 deductible?",
+    "expected_answer_contains": ["0.92"],
+    "expected_sources": ["rating_rules.md"]
+  },
+  {
+    "id": 14,
+    "question": "What protection class requires a referral unless distance conditions are met?",
+    "expected_answer_contains": ["9", "10", "protection class"],
+    "expected_sources": ["uw_guidelines_homeowners.md"]
+  },
+  {
+    "id": 15,
+    "question": "What should happen if a property has aluminum branch wiring?",
+    "expected_answer_contains": ["referred", "shall be referred", "aluminum"],
+    "expected_sources": ["uw_guidelines_homeowners.md"]
+  },
+  {
+    "id": 16,
+    "question": "What is the cash surrender value of a whole life insurance policy after 10 years?",
+    "answerable": false,
+    "expected_answer_contains": [],
+    "expected_sources": []
+  },
+  {
+    "id": 17,
+    "question": "How do I file an auto insurance collision claim and what is the rental car reimbursement limit?",
+    "answerable": false,
+    "expected_answer_contains": [],
+    "expected_sources": []
+  },
+  {
+    "id": 18,
+    "question": "What is the company's CEO email address and office phone number?",
+    "answerable": false,
+    "expected_answer_contains": [],
+    "expected_sources": []
+  }
+]

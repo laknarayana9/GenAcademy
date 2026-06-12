@@ -1,0 +1,16 @@
+[project]
+name = "insurance-rag"
+version = "0.1.0"
+description = "Insurance underwriting guidelines RAG — Gen Academy Week 2 project"
+requires-python = ">=3.12"
+dependencies = [
+    "langchain-openai>=1.2.2",
+    "langchain-pinecone>=0.2.13",
+    "langchain-text-splitters>=1.1.2",
+    "langchain-core>=1.4.0",
+    "pinecone>=7.3.0",
+    "rank-bm25>=0.2.2",
+    "openai>=1.0.0",
+    "python-dotenv>=1.2.2",
+    "streamlit>=1.40.0",
+]
