@@ -57,6 +57,15 @@ def _create_review_task(state: RunState) -> dict:
         else ReviewPriority.MEDIUM.value
     )
     verification = dict(state.get("verification", {}) or {})
+    canonical = state.get("submission_canonical", {}) or {}
+    submission_summary = {
+        k: canonical.get(k)
+        for k in (
+            "applicant_name", "state", "zip_code", "year_built",
+            "construction_type", "roof_type", "roof_age_years",
+            "square_feet", "occupancy", "coverage",
+        )
+    }
     verification["review_task"] = {
         "trigger": trigger,
         "priority": priority,
@@ -68,6 +77,7 @@ def _create_review_task(state: RunState) -> dict:
                 "reason_codes", []
             ),
             "review_flags": verification.get("review_flags", []),
+            "submission": submission_summary,
         },
     }
     return {
