@@ -1,0 +1,160 @@
+{
+  "description": "Labeled synthetic HO3 underwriting cases. Synthetic data only.",
+  "cases": [
+    {
+      "case_id": "accept_001",
+      "scenario": "straight_through_accept",
+      "input": {
+        "quote_id": "accept_001", "applicant_name": "Alex Rivera", "state": "TX",
+        "zip_code": "75001", "year_built": 2015, "construction_type": "masonry",
+        "roof_type": "metal", "roof_age_years": 4, "square_feet": 2200,
+        "occupancy": "owner_primary",
+        "coverage": {"dwelling_amount": 400000, "deductible": 1000}
+      },
+      "expected": {
+        "recommendation": "ACCEPT", "reason_codes": ["RC-001"],
+        "missing_info_fields": [], "review_required": false
+      }
+    },
+    {
+      "case_id": "refer_roof_age",
+      "scenario": "roof_age_referral",
+      "input": {
+        "quote_id": "refer_roof_age", "applicant_name": "Casey Kim", "state": "TX",
+        "zip_code": "75001", "year_built": 1998, "construction_type": "frame",
+        "roof_type": "asphalt_shingle", "roof_age_years": 25, "square_feet": 2000,
+        "occupancy": "owner_primary",
+        "coverage": {"dwelling_amount": 350000, "deductible": 1000}
+      },
+      "expected": {
+        "recommendation": "REFER", "reason_codes": ["RC-202"],
+        "missing_info_fields": [], "review_required": true
+      }
+    },
+    {
+      "case_id": "decline_roof_age",
+      "scenario": "roof_age_knockout",
+      "input": {
+        "quote_id": "decline_roof_age", "applicant_name": "Dana Fox", "state": "TX",
+        "zip_code": "75001", "year_built": 1985, "construction_type": "frame",
+        "roof_type": "asphalt_shingle", "roof_age_years": 35, "square_feet": 1800,
+        "occupancy": "owner_primary",
+        "coverage": {"dwelling_amount": 300000, "deductible": 1000}
+      },
+      "expected": {
+        "recommendation": "DECLINE", "reason_codes": ["RC-201"],
+        "missing_info_fields": [], "review_required": true
+      }
+    },
+    {
+      "case_id": "decline_vacant",
+      "scenario": "occupancy_knockout",
+      "input": {
+        "quote_id": "decline_vacant", "applicant_name": "Pat Morgan", "state": "TX",
+        "zip_code": "75003", "year_built": 1995, "construction_type": "frame",
+        "roof_type": "asphalt_shingle", "roof_age_years": 10, "square_feet": 1600,
+        "occupancy": "vacant",
+        "coverage": {"dwelling_amount": 250000, "deductible": 1000}
+      },
+      "expected": {
+        "recommendation": "DECLINE", "reason_codes": ["RC-101"],
+        "missing_info_fields": [], "review_required": true
+      }
+    },
+    {
+      "case_id": "refer_rental",
+      "scenario": "occupancy_referral",
+      "input": {
+        "quote_id": "refer_rental", "applicant_name": "Lee Stone", "state": "TX",
+        "zip_code": "75004", "year_built": 2005, "construction_type": "masonry",
+        "roof_type": "tile", "roof_age_years": 8, "square_feet": 1900,
+        "occupancy": "rental",
+        "coverage": {"dwelling_amount": 360000, "deductible": 1000}
+      },
+      "expected": {
+        "recommendation": "REFER", "reason_codes": ["RC-102"],
+        "missing_info_fields": [], "review_required": true
+      }
+    },
+    {
+      "case_id": "refer_wildfire",
+      "scenario": "wildfire_referral_no_mitigation",
+      "input": {
+        "quote_id": "refer_wildfire", "applicant_name": "Sam Carter", "state": "CA",
+        "zip_code": "95014", "year_built": 2012, "construction_type": "frame",
+        "roof_type": "asphalt_shingle", "roof_age_years": 7, "square_feet": 2000,
+        "occupancy": "owner_primary", "wildfire_mitigation": false,
+        "coverage": {"dwelling_amount": 650000, "deductible": 2500}
+      },
+      "expected": {
+        "recommendation": "REFER", "reason_codes": ["RC-601"],
+        "missing_info_fields": [], "review_required": true
+      }
+    },
+    {
+      "case_id": "refer_flood",
+      "scenario": "flood_zone_referral",
+      "input": {
+        "quote_id": "refer_flood", "applicant_name": "Robin Vale", "state": "TX",
+        "zip_code": "77550", "year_built": 2009, "construction_type": "masonry",
+        "roof_type": "metal", "roof_age_years": 6, "square_feet": 2100,
+        "occupancy": "owner_primary", "distance_to_coast_miles": 0.3,
+        "coverage": {"dwelling_amount": 420000, "deductible": 2500}
+      },
+      "expected": {
+        "recommendation": "REFER", "reason_codes": ["RC-701"],
+        "missing_info_fields": [], "review_required": true
+      }
+    },
+    {
+      "case_id": "refer_claims",
+      "scenario": "claims_history_referral",
+      "input": {
+        "quote_id": "refer_claims", "applicant_name": "Jamie Roe", "state": "TX",
+        "zip_code": "75005", "year_built": 2010, "construction_type": "masonry",
+        "roof_type": "metal", "roof_age_years": 5, "square_feet": 2000,
+        "occupancy": "owner_primary",
+        "prior_claims": [
+          {"year": 2021, "peril": "water", "amount": 8000},
+          {"year": 2022, "peril": "wind", "amount": 12000}
+        ],
+        "coverage": {"dwelling_amount": 380000, "deductible": 1000}
+      },
+      "expected": {
+        "recommendation": "REFER", "reason_codes": ["RC-502"],
+        "missing_info_fields": [], "review_required": true
+      }
+    },
+    {
+      "case_id": "missing_roof_age",
+      "scenario": "missing_info_resume",
+      "input": {
+        "quote_id": "missing_roof_age", "applicant_name": "Jordan Lee", "state": "TX",
+        "zip_code": "75002", "year_built": 2008, "construction_type": "frame",
+        "roof_type": "asphalt_shingle", "square_feet": 1800,
+        "occupancy": "owner_primary",
+        "coverage": {"dwelling_amount": 320000, "deductible": 1000}
+      },
+      "answers": {"roof_age_years": 6},
+      "expected": {
+        "recommendation": "ACCEPT", "reason_codes": ["RC-001"],
+        "missing_info_fields": ["roof_age_years"], "review_required": false
+      }
+    },
+    {
+      "case_id": "missing_occupancy",
+      "scenario": "missing_info_resume",
+      "input": {
+        "quote_id": "missing_occupancy", "applicant_name": "Quinn Ash", "state": "TX",
+        "zip_code": "75006", "year_built": 2011, "construction_type": "masonry",
+        "roof_type": "metal", "roof_age_years": 5, "square_feet": 2050
+      },
+      "answers": {"occupancy": "owner_primary",
+        "coverage": {"dwelling_amount": 410000, "deductible": 1000}},
+      "expected": {
+        "recommendation": "ACCEPT", "reason_codes": ["RC-001"],
+        "missing_info_fields": ["occupancy", "coverage"], "review_required": false
+      }
+    }
+  ]
+}

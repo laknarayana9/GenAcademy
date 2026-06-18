@@ -13,7 +13,7 @@ QuoteCopilot is a multi-agent insurance underwriting review system for HO3 homeo
 
 | Decision | Choice | Rationale |
 |---|---|---|
-| Agent orchestration | LangGraph hierarchical subgraphs | Demonstrates graph composition, nested state, and multi-level interrupt handling |
+| Agent orchestration | LangGraph hierarchical subgraphs | Demonstrates graph composition, nested state, and multi-level pause/resume handling |
 | LLM assignment | Multiple / switchable via `llm/factory.py` | Cheaper models for routing, stronger models for assessment and packaging |
 | Retrieval | Hybrid BM25 + semantic + RRF + cross-encoder re-ranking | Exact rule term matching + paraphrase coverage; fully local |
 | State persistence | SqliteSaver (checkpoints) + separate SQLite (business data) | Clean separation between LangGraph internals and domain schema |
@@ -38,8 +38,8 @@ QuoteCopilot/
 │   │   ├── state.py            # RunState TypedDict (shared schema)
 │   │   ├── orchestrator.py     # Parent StateGraph composing 4 subgraphs
 │   │   ├── subgraphs/
-│   │   │   ├── intake.py       # Normalizer → Router → interrupt
-│   │   │   ├── enrichment.py   # Enrichment → Retrieval → interrupt
+│   │   │   ├── intake.py       # Normalizer → Router → pause (waiting_for_info)
+│   │   │   ├── enrichment.py   # Enrichment → Retrieval → pause (waiting_for_info)
 │   │   │   ├── assessment.py   # Assessor → Verifier → Rating
 │   │   │   └── packaging.py    # Packager → Critic → Review routing
 │   │   └── runner.py           # Graph invocation, resume, checkpoint wiring
@@ -114,29 +114,33 @@ class RunState(TypedDict):
 START → intake_subgraph → enrichment_subgraph → assessment_subgraph → packaging_subgraph → END
 ```
 
-Each subgraph is compiled and added as a node. The parent has no conditional edges — all branching lives inside the subgraphs. This keeps the top-level graph readable as a straight sequence of phases.
+Each subgraph is compiled and added as a node. The parent uses one small conditional edge after each phase: if the run is `waiting_for_info` or `failed`, it short-circuits to `END`; otherwise it proceeds to the next phase. This keeps the top-level graph readable as a straight sequence of phases while ensuring paused or failed runs never execute downstream work. All other branching lives inside the subgraphs.
 
 ### Subgraph Internals
 
 **`intake_subgraph`**
 ```
-normalize → route → [conditional]
-  status == waiting_for_info       → interrupt_before(normalize)  # resumes on /answers
-  status == hard_decline_candidate → END (proceeds to enrichment+assessment to confirm)
-  else                             → END (proceed to enrichment)
+normalize → route → END
+# normalize sets status = waiting_for_info when required facts are missing.
+# The parent orchestrator's conditional edge then short-circuits to END so
+# downstream phases do not run; the run resumes on POST /runs/{run_id}/answers.
+# hard_decline_candidate / hard_refer routes still proceed so the deterministic
+# rules can confirm the knockout/referral with citations.
 ```
 
 **`enrichment_subgraph`**
 ```
 enrich → [conditional]
-  contextual_gaps → interrupt_before(enrich)  # wildfire mitigation follow-up
+  contextual_gaps → END  # sets status = waiting_for_info (wildfire mitigation follow-up)
   else            → retrieve → END
 ```
 
 **`assessment_subgraph`**
 ```
-assess → verify → rate → END
-# No interrupts — fully autonomous; verify sets review_flags if grounding insufficient
+assess → verify → END
+# Fully autonomous (no pauses). The assessor runs the deterministic rule engine
+# AND the rating tool together, so rating is available to verify; verify sets
+# review_flags when grounding is insufficient or the decision is REFER/DECLINE.
 ```
 
 **`packaging_subgraph`**
@@ -145,29 +149,35 @@ assess → verify → rate → END
 
 ```
 package → [conditional]
-  CRITIC_ENABLED=true → critic → [conditional]
-    critique_passed → route_decision
-    retry_budget_remaining → package   # retry loop, capped at 2
-    else → route_decision (with review flag)
+  CRITIC_ENABLED=true  → critic → route_decision   # critic flags review on failure
   CRITIC_ENABLED=false → route_decision
 
 route_decision → [conditional]
   review_needed → create_review_task → END
   else          → END
+
+# Note: the critic is currently a single pass — on failure it sets the review
+# flag (routing the run to human review) rather than looping back to package.
+# The package-retry loop is reserved for future work; CRITIC_RETRY_BUDGET exists
+# in config but is not yet consumed.
 ```
 
 ### Checkpointing and Resume
 
-`SqliteSaver` attaches to the parent orchestrator at compile time. On `POST /runs/{run_id}/answers`, the runner calls:
+`SqliteSaver` attaches to the parent orchestrator at compile time, keyed by `thread_id == run_id`. Pausing is modeled with an explicit `status = waiting_for_info` flag rather than LangGraph's `interrupt_before` primitive: a node sets the flag, and the parent orchestrator's conditional edges short-circuit the run to `END` so no downstream phase executes on an incomplete submission.
+
+On `POST /runs/{run_id}/answers`, the runner merges the prior and new facts and re-invokes the graph on the same `thread_id`:
 
 ```python
 graph.invoke(
-    {"additional_answers": answers},
+    {**preserved_state, "additional_answers": merged_answers},
     config={"configurable": {"thread_id": run_id}}
 )
 ```
 
-LangGraph replays from the last checkpoint with answers merged into state. No custom resume logic needed.
+Because the agents are deterministic and the checkpoint preserves accumulated state, re-invocation replays the workflow with the previously missing facts resolved and completes the run. This trades LangGraph's native interrupt replay for explicit, version-stable status handling while satisfying the same same-`run_id` resume requirement.
+
+> Design note: this is an intentional deviation from a pure `interrupt_before` / `GraphInterrupt` design. Both the intake and enrichment pauses, and the parent short-circuit edges, use the `waiting_for_info` status mechanism. See `app/graph/orchestrator.py` and `app/graph/runner.py`.
 
 ### LLM Assignment
 
@@ -295,7 +305,7 @@ Agents return updated `RunState` only. The graph runner writes audit events and 
 | `GET` | `/reviews/{run_id}` | Full review packet |
 | `POST` | `/reviews/{run_id}/actions` | `approve|reject|request_info|close` with optional note |
 
-**Graph interrupt handling:** When the graph pauses at an `interrupt_before` node, the runner catches `GraphInterrupt`, writes `status=waiting_for_info` and `required_questions` to the DB, and returns `{run_id, status: "waiting_for_info"}`.
+**Graph pause handling:** When a node sets `status = waiting_for_info`, the parent orchestrator's conditional edges route the run to `END`. The runner then writes `status=waiting_for_info` and `required_questions` to the DB and returns `{run_id, status: "waiting_for_info"}`. (No `GraphInterrupt` is raised — pausing is status-driven, not interrupt-driven.)
 
 **Error shapes:** `{error: str, field_errors: [...]}` for validation failures; `{error: str, run_id: str}` for run-level failures.
 

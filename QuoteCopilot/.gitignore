@@ -1,0 +1,30 @@
+# --- Python ---
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# --- Virtual environments ---
+.venv/
+venv/
+env/
+
+# --- Secrets / local config ---
+.env
+
+# --- Generated data and indexes ---
+data/
+*.db
+*.sqlite
+*.sqlite3
+bm25_index.pkl
+
+# --- Eval outputs ---
+evals/results/
+
+# --- OS / editor ---
+.DS_Store
+.idea/
+.vscode/

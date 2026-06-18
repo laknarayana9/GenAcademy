@@ -1,0 +1,1 @@
+"""QuoteCopilot application package."""
