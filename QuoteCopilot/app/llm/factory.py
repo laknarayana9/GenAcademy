@@ -15,8 +15,8 @@ from app.config import get_settings
 
 # Sensible Nebius Token Factory defaults when the configured model names still
 # point at the Anthropic defaults (so Nebius works out of the box).
-NEBIUS_DEFAULT_FAST = "meta-llama/Meta-Llama-3.1-8B-Instruct"
-NEBIUS_DEFAULT_STRONG = "meta-llama/Meta-Llama-3.1-70B-Instruct"
+NEBIUS_DEFAULT_FAST = "Qwen/Qwen3-30B-A3B-Instruct-2507"
+NEBIUS_DEFAULT_STRONG = "meta-llama/Llama-3.3-70B-Instruct"
 
 # Role -> default tier. Fast for routing/enrichment, strong for reasoning/wording.
 ROLE_TIER = {
@@ -34,12 +34,14 @@ ROLE_TIER = {
 def model_for_role(role: str) -> str:
     """Resolve the model name for an agent role."""
     settings = get_settings()
-    if role in settings.agent_model_map:
-        return settings.agent_model_map[role]
     tier = ROLE_TIER.get(role, "fast")
-    model = settings.fast_model if tier == "fast" else settings.strong_model
-    # If running on Nebius but the model still points at the Anthropic defaults,
-    # substitute a Nebius-hosted model so the provider works without extra config.
+    if role in settings.agent_model_map:
+        model = settings.agent_model_map[role]
+    else:
+        model = settings.fast_model if tier == "fast" else settings.strong_model
+    # If running on Nebius but the resolved model still points at an Anthropic
+    # model (tier default or AGENT_MODEL_MAP override), substitute a
+    # Nebius-hosted model so the provider works without extra config.
     if settings.llm_provider == "nebius" and model.startswith("claude"):
         return NEBIUS_DEFAULT_FAST if tier == "fast" else NEBIUS_DEFAULT_STRONG
     return model

@@ -1,0 +1,176 @@
+{
+  "metrics": {
+    "decision_accuracy": 1.0,
+    "reason_code_match": 1.0,
+    "missing_info_detection": 1.0,
+    "review_required_match": 1.0,
+    "citation_faithfulness": 1.0
+  },
+  "cases": [
+    {
+      "case_id": "accept_001",
+      "decision_ok": true,
+      "reason_ok": true,
+      "missing_ok": true,
+      "review_ok": true,
+      "faithful": true,
+      "got": {
+        "recommendation": "ACCEPT",
+        "reason_codes": [
+          "RC-001"
+        ],
+        "missing": [],
+        "review_required": false
+      }
+    },
+    {
+      "case_id": "refer_roof_age",
+      "decision_ok": true,
+      "reason_ok": true,
+      "missing_ok": true,
+      "review_ok": true,
+      "faithful": true,
+      "got": {
+        "recommendation": "REFER",
+        "reason_codes": [
+          "RC-202"
+        ],
+        "missing": [],
+        "review_required": true
+      }
+    },
+    {
+      "case_id": "decline_roof_age",
+      "decision_ok": true,
+      "reason_ok": true,
+      "missing_ok": true,
+      "review_ok": true,
+      "faithful": true,
+      "got": {
+        "recommendation": "DECLINE",
+        "reason_codes": [
+          "RC-201"
+        ],
+        "missing": [],
+        "review_required": true
+      }
+    },
+    {
+      "case_id": "decline_vacant",
+      "decision_ok": true,
+      "reason_ok": true,
+      "missing_ok": true,
+      "review_ok": true,
+      "faithful": true,
+      "got": {
+        "recommendation": "DECLINE",
+        "reason_codes": [
+          "RC-101"
+        ],
+        "missing": [],
+        "review_required": true
+      }
+    },
+    {
+      "case_id": "refer_rental",
+      "decision_ok": true,
+      "reason_ok": true,
+      "missing_ok": true,
+      "review_ok": true,
+      "faithful": true,
+      "got": {
+        "recommendation": "REFER",
+        "reason_codes": [
+          "RC-102"
+        ],
+        "missing": [],
+        "review_required": true
+      }
+    },
+    {
+      "case_id": "refer_wildfire",
+      "decision_ok": true,
+      "reason_ok": true,
+      "missing_ok": true,
+      "review_ok": true,
+      "faithful": true,
+      "got": {
+        "recommendation": "REFER",
+        "reason_codes": [
+          "RC-601"
+        ],
+        "missing": [],
+        "review_required": true
+      }
+    },
+    {
+      "case_id": "refer_flood",
+      "decision_ok": true,
+      "reason_ok": true,
+      "missing_ok": true,
+      "review_ok": true,
+      "faithful": true,
+      "got": {
+        "recommendation": "REFER",
+        "reason_codes": [
+          "RC-701"
+        ],
+        "missing": [],
+        "review_required": true
+      }
+    },
+    {
+      "case_id": "refer_claims",
+      "decision_ok": true,
+      "reason_ok": true,
+      "missing_ok": true,
+      "review_ok": true,
+      "faithful": true,
+      "got": {
+        "recommendation": "REFER",
+        "reason_codes": [
+          "RC-502"
+        ],
+        "missing": [],
+        "review_required": true
+      }
+    },
+    {
+      "case_id": "missing_roof_age",
+      "decision_ok": true,
+      "reason_ok": true,
+      "missing_ok": true,
+      "review_ok": true,
+      "faithful": true,
+      "got": {
+        "recommendation": "ACCEPT",
+        "reason_codes": [
+          "RC-001"
+        ],
+        "missing": [
+          "roof_age_years"
+        ],
+        "review_required": false
+      }
+    },
+    {
+      "case_id": "missing_occupancy",
+      "decision_ok": true,
+      "reason_ok": true,
+      "missing_ok": true,
+      "review_ok": true,
+      "faithful": true,
+      "got": {
+        "recommendation": "ACCEPT",
+        "reason_codes": [
+          "RC-001"
+        ],
+        "missing": [
+          "coverage",
+          "occupancy"
+        ],
+        "review_required": false
+      }
+    }
+  ]
+}
