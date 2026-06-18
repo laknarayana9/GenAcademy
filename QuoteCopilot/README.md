@@ -62,4 +62,4 @@ pytest
 
 ## Status
 
-Built in phases. This README is updated as phases land.
+Built in phases. Used superpowers (claude code) framework to build this.
